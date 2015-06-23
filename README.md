@@ -11,9 +11,9 @@ You're probably here for the second reason.
 
 From the root directory, type:
 
-    python ./setup.py development
+    python ./setup.py install
 
-This is assuming you're running in a development, rather than a production, environment.
+This will install your module, as well as its dependencies, and allow you to use included binary commands on your system.
 
 ## Running the Tests
 
@@ -35,10 +35,12 @@ While in an ideal world, we'd have 100% coverage, this becomes difficult for thi
 
 ## Executable scripts
 
-Executable scripts live in ./bin.  Nowhere else!
+Executable scripts live in ./bin.  You'll also need to add them to the scripts array inside of setup.py.
 
-Make sure to run:
+If you want to run Python code on the command line, add the following line to the top of the file:
 
-	chmod +x <filename>
+	#!/usr/bin/env python
 
-To ensure that all the script files are executable.
+You can then import your module packages and use them like normal.
+
+On the command line, run `chmod +x <filename>` to ensure that all the script files are executable.
