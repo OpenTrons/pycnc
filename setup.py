@@ -14,7 +14,7 @@ config = {
 		'pyserial'
 	],
 	'packages': ['pycnc'],
-	'scripts': [],
+	'scripts': ['./bin/cnc-hello'],
 	'name': 'pycnc'
 }
 
