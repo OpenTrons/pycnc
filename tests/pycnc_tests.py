@@ -13,15 +13,23 @@ class SerialTestCase(unittest.TestCase):
 			if lastCommand.startswith(command):
 				foundOne = True
 				break
-		msg = "Last CNC command ("+lastCommand.strip()+") "+\
-		      "matches one of: "+", ".join(commands)
+
+		msg = "Expected last CNC command to be "
+
+		if len(commands) is 1:
+			msg += '"'+commands[0]+'" '
+		else:
+			msg += "one of: "+", ".join(commands)+" "
+
+		msg += "but got \""+lastCommand.strip()+"\"."
+
 		self.assertTrue(foundOne, msg=msg)
 
 	def assertLastArguments(self, *arguments):
 		lastCommand = self.cnc.connection.write_buffer[-1]
 		for arg in arguments:
-			msg = "Last CNC command ("+lastCommand.strip()+") "+\
-			      "arguments contain: "+arg
+			msg = "Expected last command arguments to include "+\
+			      "\""+arg+"\" but got \""+lastCommand.strip()+"\" instead."
 			self.assertTrue(arg in lastCommand, msg=msg)
 
 class CNCTest(SerialTestCase):

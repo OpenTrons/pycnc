@@ -50,9 +50,9 @@ For example, in concert with our MockSerial class, we can write assertions which
 
 When an assertion fails, we get a domain-specific error message:
 
-	AssertionError: Last CNC command (G28) matches one of: G0
+	AssertionError: Expected last CNC command to be "G22" but got "G28".
 
-What this tells us is that we were expecting the last CNC command to be G28, but instead it was G0.  Don't be afraid to use `*args` and `**kwargs` to make this code work harder for you.
+(Don't be afraid to use `*args` and `**kwargs` to make this code work harder for you.)
 
 ## Executable scripts
 
