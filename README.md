@@ -31,7 +31,28 @@ If you want to see which lines of the module are lacking adequate code coverage,
 
 This will produce a list of all files and the lines that haven't been covered.  Code coverage includes conditional branches.
 
-While in an ideal world, we'd have 100% coverage, this becomes difficult for things like Serial drivers, where we're executing device-specific code to connect to mocked up serial drivers.
+While in an ideal world, we'd have 100% coverage, this becomes difficult for things like Serial drivers, where we're executing device-specific code to connect under real-world conditions and using a mockup during test.
+
+Try to cover as much as possible. For example, you can test device-specific behavior, and try to test on as many different platforms as possible. This will show up as incomplete test coverage on any given device, but provide full coverage when everyone runs tests on their own systems.
+
+### Mock classes
+
+This repository contains an example of using the mock class MockSerial, which pretends to be a serial port connection.  In reality, it simply saves data written to it and returns this information to the test cases.
+
+### Custom assertions
+
+Custom assertions (in a parent UnitTest class instance) can make your tests much more readable.
+
+For example, in concert with our MockSerial class, we can write assertions which very specifically state what we're trying to ensure has happened within the system as a result of our test activity.
+
+		self.assertLastCommand('G999')
+		self.assertLastArguments('X1', 'Y1', 'Z1')
+
+When an assertion fails, we get a domain-specific error message:
+
+	AssertionError: Last CNC command (G28) matches one of: G0
+
+What this tells us is that we were expecting the last CNC command to be G28, but instead it was G0.  Don't be afraid to use `*args` and `**kwargs` to make this code work harder for you.
 
 ## Executable scripts
 
