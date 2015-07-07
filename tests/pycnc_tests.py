@@ -1,7 +1,7 @@
 import unittest
 from pycnc.drivers import CNCDriver
 
-from mocks.serial import MockSerial
+from .mocks.serial import MockSerial
 import re
 
 class SerialTestCase(unittest.TestCase):
