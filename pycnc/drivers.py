@@ -42,30 +42,6 @@ class CNCDriver(object):
 		self.connection.close()
 		self.connection.open()
 
-	def get_serial_device(self, model_name):
-
-		"""
-		Search through all our tty devices until we find one that matches
-		the model we're expecting (should normally be Smoothieboard).
-		"""
-		device_node  = None
-
-		context = pyudev.Context()
-		devices = context.list_devices(subsystem='tty')
-		for device in devices:
-			model = device.get('ID_MODEL')
-			if device.get('ID_MODEL') == model_name:
-				device_node = device.device_node
-				break
-
-		if device_node is None:
-			raise IOError(
-				("Can't find device for %s; please make sure your "+
-			     "device is connected to the machine.") % model_name
-			)
-
-		return device_node
-
 	def send_command(self, command, **kwargs):
 		"""
 		Sends a GCode command.  Keyword arguments will be automatically
